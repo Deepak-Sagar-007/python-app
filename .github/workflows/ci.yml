@@ -4,9 +4,6 @@ on:
   push:
     branches: [ "main" ]
 
-env:
-  NAME: "Deepak"   # ENV variable
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +20,10 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Python App
+      - name: Run Python App using Secret
+        env:
+          NAME: ${{ secrets.NAME }}  
         run: python app.py
 
+      -
       
