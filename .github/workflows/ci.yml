@@ -27,8 +27,11 @@ jobs:
 
       - name: Run Python App using environment variable
         env:
-         NAME: ${{ vars.NAME }}
+          NAME: ${{ vars.NAME }}
         run: python app.py
-  
-      
-      
+
+      # 🔥 ADD THIS STEP (IMPORTANT)
+      - name: Trigger Jenkins Job 
+        run: |
+          curl -X POST "http://54.252.239.31:8080/job/python-job/buildWithParameters?token=mytoken123&BRANCH_NAME=main&ENVIRONMENT=dev&RUN_TESTS=true" \
+          --user "${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }}"
